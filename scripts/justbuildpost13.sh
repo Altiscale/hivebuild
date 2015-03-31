@@ -17,4 +17,4 @@
 #export ANT_OPTS="-XX:MaxPermSize=512m -Xmx1024m"
 #mvn install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true
 
-mvn -X -e -U install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true -Dmaven.javadoc.skip=true -Dmaven-javadoc-plugin=false
+mvn install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true -Dmaven.javadoc.skip=true -Dmaven-javadoc-plugin=false
