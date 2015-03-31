@@ -15,4 +15,6 @@
 
 #refixing wb-803 for wb-505, this would need to be a community patch, and this is  already changed in hive-0.11
 #export ANT_OPTS="-XX:MaxPermSize=512m -Xmx1024m"
-mvn -X -e -U install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true
+#mvn install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true
+
+mvn -X -e -U install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true -Dskip.javadoc=true
