@@ -35,5 +35,5 @@ mvn install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true -Dmaven.javadoc.
 MAVEN_LOCAL_REPO=`mvn help:evaluate -Dexpression=settings.localRepository | egrep -v '[INFO]|Download'`
 
 # Remove the untrusted artifacts from this node's local maven repo soon as we have built hive
-find $MAVEN_LOCAL_REPO -name pentaho-aggdesigner* -type d | xargs rm -rf
+find $MAVEN_LOCAL_REPO -name 'pentaho-aggdesigner*' -type d | xargs rm -rf
 

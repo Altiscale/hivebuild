@@ -33,14 +33,14 @@ rm -f /tmp/$$.files
 
 cd ${RPM_DIR}
 
-export RPM_NAME="vcc-hive-${HIVE_VERSION}"
+export RPM_NAME="alti-hive-${HIVE_VERSION}"
 fpm --verbose \
 --maintainer ops@verticloud.com \
 --vendor VertiCloud \
 --provides ${RPM_NAME} \
 --description "${DESCRIPTION}" \
 --depends alti-mysql-connector \
---replaces vcc-hive \
+--replaces alti-hive \
 -s dir \
 -t rpm \
 -n ${RPM_NAME} \
