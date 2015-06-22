@@ -24,9 +24,9 @@ wget http://conjars.org/repo/org/pentaho/pentaho-aggdesigner-algorithm/5.1.5-jhy
 wget http://conjars.org/repo/org/pentaho/pentaho-aggdesigner/5.1.5-jhyde/pentaho-aggdesigner-5.1.5-jhyde.pom
 
 # Install these untrusted artifacts in our local maven cache so that we can build hive.
-mvn install:install-file -Dfile=pentaho-aggdesigner-algorithm-5.1.5-jhyde.jar
-mvn install:install-file -Dfile=pentaho-aggdesigner-algorithm-5.1.5-jhyde.pom
-mvn install:install-file -Dfile=pentaho-aggdesigner-5.1.5-jhyde.pom
+mvn install:install-file -Dfile=pentaho-aggdesigner-algorithm-5.1.5-jhyde.jar -DgroupId=org.pentaho -DartifactId=pentaho-aggdesigner-algorithm -Dpackaging=jar -Dversion=5.1.5-jhyde
+mvn install:install-file -Dfile=pentaho-aggdesigner-algorithm-5.1.5-jhyde.pom -DgroupId=org.pentaho -DartifactId=pentaho-aggdesigner-algorithm -Dpackaging=pom -Dversion=5.1.5-jhyde
+mvn install:install-file -Dfile=pentaho-aggdesigner-5.1.5-jhyde.pom -DgroupId=org.pentaho -DartifactId=pentaho-aggdesigner -Dpackaging=pom -Dversion=5.1.5-jhyde
 
 # Build hive
 mvn install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true -Dmaven.javadoc.skip=true -Dmaven-javadoc-plugin=false
