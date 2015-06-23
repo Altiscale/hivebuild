@@ -41,6 +41,7 @@ fpm --verbose \
 --description "${DESCRIPTION}" \
 --depends alti-mysql-connector \
 --replaces alti-hive \
+--replaces vcc-hive \
 -s dir \
 -t rpm \
 -n ${RPM_NAME} \
