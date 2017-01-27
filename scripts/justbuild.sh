@@ -29,7 +29,7 @@ mvn install:install-file -Dfile=pentaho-aggdesigner-algorithm-5.1.5-jhyde.pom -D
 mvn install:install-file -Dfile=pentaho-aggdesigner-5.1.5-jhyde.pom -DgroupId=org.pentaho -DartifactId=pentaho-aggdesigner -Dpackaging=pom -Dversion=5.1.5-jhyde
 
 # Build hive
-mvn install -Pdist -DskipTests -Phadoop-2 -DcreateChecksum=true -Dmaven.javadoc.skip=true -Dmaven-javadoc-plugin=false -Dtez.version=${TEZ_VERSION}
+mvn install -Pdist -DskipTests -DcreateChecksum=true -Dmaven.javadoc.skip=true -Dmaven-javadoc-plugin=false -Dtez.version=${TEZ_VERSION}
 
 # Discover the path of the local maven cache
 MAVEN_LOCAL_REPO=`mvn help:evaluate -Dexpression=settings.localRepository | egrep -v '[INFO]|Download'`
