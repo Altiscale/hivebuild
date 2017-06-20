@@ -7,4 +7,3 @@ fi
 # Build hive
 echo "mvn install -Pdist -Dmaven.test.skip=${MVN_SKIPTESTS_BOOL} -DskipTests=${MVN_SKIPTESTS_BOOL} -DcreateChecksum=true -Dmaven.javadoc.skip=true -Dmaven-javadoc-plugin=false"
 exit 1
-
