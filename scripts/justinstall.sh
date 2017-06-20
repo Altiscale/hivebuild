@@ -9,8 +9,8 @@ RPM_DESCRIPTION="Apache Hive ${HIVE_VERSION}\n\n${DESCRIPTION}"
 DEST_ROOT=${INSTALL_DIR}/opt
 mkdir --mode=0755 -p ${DEST_ROOT}
 cd ${DEST_ROOT}
-tar -xvzpf ${WORKSPACE}/hive/packaging/target/apache-hive-${HIVE_VERSION}-bin.tar.gz
-tar -xvzpf ${WORKSPACE}/hive/packaging/target/apache-hive-${HIVE_VERSION}-src.tar.gz
+tar -xvzpf ${WORKSPACE}/hive2/packaging/target/apache-hive-${HIVE_VERSION}-bin.tar.gz
+tar -xvzpf ${WORKSPACE}/hive2/packaging/target/apache-hive-${HIVE_VERSION}-src.tar.gz
 mv apache-hive-${HIVE_VERSION}-bin hive-${HIVE_VERSION}
 mv apache-hive-${HIVE_VERSION}-src hive-${HIVE_VERSION}/src
 
