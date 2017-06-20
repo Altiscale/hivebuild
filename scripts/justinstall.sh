@@ -1,5 +1,6 @@
 #!/bin/sh -ex
 # deal with the hive artifacts to create a tarball ARTIFACT_VERSION is supplied by the ruby wrapper
+env
 ALTISCALE_RELEASE=${ALTISCALE_RELEASE:-0.1.0}
 HIVE_VERSION=${ARTIFACT_VERSION:-0.11.0}
 RPM_DESCRIPTION="Apache Hive ${HIVE_VERSION}\n\n${DESCRIPTION}"
@@ -33,8 +34,8 @@ rm -f /tmp/$$.files
 
 cd ${RPM_DIR}
 
-export RPM_NAME="alti-hive-${HIVE_VERSION}"
-fpm --verbose \
+export RPM_NAME="alti-${PACKAGES}"
+echo fpm --verbose \
 --maintainer support@altiscale.com \
 --vendor Altiscale \
 --provides ${RPM_NAME} \
@@ -52,3 +53,5 @@ ${CONFIG_FILES} \
 --rpm-group root \
 -C ${INSTALL_DIR} \
 opt etc
+
+exit 1
