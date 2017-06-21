@@ -35,7 +35,7 @@ rm -f /tmp/$$.files
 cd ${RPM_DIR}
 
 export RPM_NAME="alti-${PACKAGES}"
-echo fpm --verbose \
+fpm --verbose \
 --maintainer support@altiscale.com \
 --vendor Altiscale \
 --provides ${RPM_NAME} \
@@ -53,5 +53,3 @@ ${CONFIG_FILES} \
 --rpm-group root \
 -C ${INSTALL_DIR} \
 opt etc
-
-exit 1
