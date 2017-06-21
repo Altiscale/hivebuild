@@ -3,7 +3,7 @@
 env
 ALTISCALE_RELEASE=${ALTISCALE_RELEASE:-0.1.0}
 HIVE_VERSION=${ARTIFACT_VERSION:-0.11.0}
-RPM_DESCRIPTION="Apache Hive ${HIVE_VERSION}\n\n${DESCRIPTION}"
+RPM_DESCRIPTION="Apache Hive ${HIVE_VERSION}\n\n${DESCRIPTION}\n"
 
 #convert each tarball into an RPM
 DEST_ROOT=${INSTALL_DIR}/opt
@@ -18,10 +18,6 @@ mkdir --mode=0755 -p ${INSTALL_DIR}/etc
 mv ${INSTALL_DIR}/opt/hive-${ARTIFACT_VERSION}/conf ${INSTALL_DIR}/etc/hive-${ARTIFACT_VERSION}
 cd ${INSTALL_DIR}/opt/hive-${ARTIFACT_VERSION}
 ln -s /etc/hive-${ARTIFACT_VERSION} conf
-#fix a missed permission setting on hcat
-#chmod 755 hcatalog/bin/hcat
-#cd ${INSTALL_DIR}/opt/hive-${ARTIFACT_VERSION}/lib
-#ln -s /opt/mysql-connector/mysql-connector.jar mysql-connector.jar
 
 # convert all the etc files to config files
 cd ${INSTALL_DIR}
@@ -31,7 +27,6 @@ for i in `cat /tmp/$$.files`; do CONFIG_FILES="--config-files $i $CONFIG_FILES "
 export CONFIG_FILES
 rm -f /tmp/$$.files
 
-
 cd ${RPM_DIR}
 
 export RPM_NAME="alti-${PACKAGES}-${HIVE_VERSION}"
@@ -39,7 +34,7 @@ fpm --verbose \
 --maintainer support@altiscale.com \
 --vendor Altiscale \
 --provides ${RPM_NAME} \
---description "${RPM_DESCRIPTION}" \
+--description "$(printf ${RPM_DESCRIPTION}" \
 --url ${GITREPO} \
 --license "Apache License v2" \
 -s dir \
