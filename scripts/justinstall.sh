@@ -40,7 +40,6 @@ fpm --verbose \
 --vendor Altiscale \
 --provides ${RPM_NAME} \
 --description "${RPM_DESCRIPTION}" \
-#--depends alti-mysql-connector \
 --url ${GITREPO} \
 --license "Apache License v2" \
 -s dir \
