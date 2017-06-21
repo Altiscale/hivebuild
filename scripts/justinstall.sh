@@ -34,7 +34,7 @@ fpm --verbose \
 --maintainer support@altiscale.com \
 --vendor Altiscale \
 --provides ${RPM_NAME} \
---description "$(printf ${RPM_DESCRIPTION}" \
+--description "$(printf ${RPM_DESCRIPTION})" \
 --url ${GITREPO} \
 --license "Apache License v2" \
 -s dir \
