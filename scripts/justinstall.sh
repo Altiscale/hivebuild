@@ -3,7 +3,7 @@
 env
 ALTISCALE_RELEASE=${ALTISCALE_RELEASE:-0.1.0}
 HIVE_VERSION=${ARTIFACT_VERSION:-0.11.0}
-RPM_DESCRIPTION="Apache Hive ${HIVE_VERSION}\n\n${DESCRIPTION}\n"
+RPM_DESCRIPTION="Apache Hive ${HIVE_VERSION}\n\n${DESCRIPTION}"
 
 #convert each tarball into an RPM
 DEST_ROOT=${INSTALL_DIR}/opt
@@ -18,6 +18,12 @@ mkdir --mode=0755 -p ${INSTALL_DIR}/etc
 mv ${INSTALL_DIR}/opt/hive-${ARTIFACT_VERSION}/conf ${INSTALL_DIR}/etc/hive-${ARTIFACT_VERSION}
 cd ${INSTALL_DIR}/opt/hive-${ARTIFACT_VERSION}
 ln -s /etc/hive-${ARTIFACT_VERSION} conf
+
+# Add init.d scripts and sysconfig
+mkdir --mode=0755 -p ${INSTALL_DIR}/etc/rc.d/init.d
+cp ${WORKSPACE}/etc/init.d/* ${INSTALL_DIR}/etc/rc.d/init.d
+mkdir --mode=0755 -p ${INSTALL_DIR}/etc/sysconfig
+cp ${WORKSPACE}/etc/sysconfig/* ${INSTALL_DIR}/etc/sysconfig
 
 # convert all the etc files to config files
 cd ${INSTALL_DIR}
