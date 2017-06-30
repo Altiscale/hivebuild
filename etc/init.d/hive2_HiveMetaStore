@@ -18,38 +18,48 @@ if [ -f /etc/sysconfig/hive2_HiveMetaStore ]; then
   . /etc/sysconfig/hive2_HiveMetaStore
 fi
 
-if [ "x" == "$HIVE_CMDx" ]; then
+if [ "x" == "${HIVE_CMD}x" ]; then
   echo "hive command is not found."
   exit 1
 fi
 
-if [ "x" == "$HIVE_PROCESS_DIRx" ]; then
+if [ "x" == "${HIVE_PROCESS_DIR}x" ]; then
   echo "HIVE_PROCESS_DIR is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_USERx" ]; then
+if [ "x" == "${HIVE_DAEMON_USER}x" ]; then
   echo "HIVE_DAEMON_USER is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_NAMEx" ]; then
+if [ "x" == "${HIVE_DAEMON_NAME}x" ]; then
   echo "HIVE_DAEMON_NAME is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_OUTx" ]; then
+if [ "x" == "${HIVE_DAEMON_OUT}x" ]; then
   echo "HIVE_DAEMON_OUT is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_PID_FILEx" ]; then
+if [ "x" == "${HIVE_DAEMON_PID_FILE}x" ]; then
   echo "HIVE_DAEMON_PID_FILE is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_CMDx" ]; then
+if [ "x" == "${HIVE_DAEMON_CMD}x" ]; then
   echo "HIVE_DAEMON_CMD is not defined."
+  exit 1
+fi
+
+if [ "x" == "${HIVE_METASTORE_PORT}x" ]; then
+  echo "HIVE_METASTORE_PORT is not defined."
+  exit 1
+fi
+
+if [ "x" == "${HIVE_SCHEMA_DBTYPE}x" ]; then
+  echo "HIVE_SCHEMA_DBTYPE is not defined."
   exit 1
 fi
 
@@ -67,7 +77,7 @@ case "$1" in
                 --chdir=$HIVE_PROCESS_DIR \
                 --output=$HIVE_DAEMON_OUT \
                 --pidfile=$HIVE_DAEMON_PID_FILE \
-                --command=\"$HIVE_DAEMON_CMD\"
+                --command=\"$HIVE_DAEMON_CMD -p $HIVE_METASTORE_PORT\"
           RETVAL=$?
           echo
           [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$HIVE_DAEMON_NAME
@@ -88,8 +98,29 @@ case "$1" in
         $0 stop
         $0 start
         ;;
+  schema-init)
+        cd $HIVE_PROCESS_DIR
+        export HIVE_SCHEMA_DBTYPE=${HIVE_SCHEMA_DBTYPE}
+        runuser root -c 'schematool -dbType ${HIVE_SCHEMA_DBTYPE} -initSchema -verbose'
+        if [ "derby" == "${HIVE_SCHEMA_DBTYPE}" ]; then
+          export HIVE_DAEMON_USER=${HIVE_DAEMON_USER}
+          export HIVE_PROCESS_DIR=${HIVE_PROCESS_DIR}
+          runuser root -c 'chown -R ${HIVE_DAEMON_USER} ${HIVE_PROCESS_DIR}/metastore_db && \
+                             chown -R ${HIVE_DAEMON_USER} ${HIVE_PROCESS_DIR}/derby.log'
+        fi
+        ;;
+  schema-upgrade)
+        cd $HIVE_PROCESS_DIR
+        export HIVE_SCHEMA_DBTYPE=${HIVE_SCHEMA_DBTYPE}
+        runuser $HIVE_DAEMON_USER -c 'schematool -dbType $HIVE_SCHEMA_DBTYPE -upgradeSchema -verbose'
+        ;;
+  schema-info)
+        cd $HIVE_PROCESS_DIR
+        export HIVE_SCHEMA_DBTYPE=${HIVE_SCHEMA_DBTYPE}
+        runuser $HIVE_DAEMON_USER -c 'schematool -dbType $HIVE_SCHEMA_DBTYPE -info -verbose'
+        ;;
   *)
-        echo "Usage: $0 {start|stop|restart|status}"
+        echo "Usage: $0 {start|stop|restart|status|schema-info|schema-init|schema-upgrade}"
         exit 1
 esac
 
