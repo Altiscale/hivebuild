@@ -18,37 +18,37 @@ if [ -f /etc/sysconfig/hive2_HiveServer2 ]; then
   . /etc/sysconfig/hive2_HiveServer2
 fi
 
-if [ "x" == "$HIVE_CMDx" ]; then
+if [ "x" == "${HIVE_CMD}x" ]; then
   echo "hive command is not found."
   exit 1
 fi
 
-if [ "x" == "$HIVE_PROCESS_DIRx" ]; then
+if [ "x" == "${HIVE_PROCESS_DIR}x" ]; then
   echo "HIVE_PROCESS_DIR is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_USERx" ]; then
+if [ "x" == "${HIVE_DAEMON_USER}x" ]; then
   echo "HIVE_DAEMON_USER is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_NAMEx" ]; then
+if [ "x" == "${HIVE_DAEMON_NAME}x" ]; then
   echo "HIVE_DAEMON_NAME is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_OUTx" ]; then
+if [ "x" == "${HIVE_DAEMON_OUT}x" ]; then
   echo "HIVE_DAEMON_OUT is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_PID_FILEx" ]; then
+if [ "x" == "${HIVE_DAEMON_PID_FILE}x" ]; then
   echo "HIVE_DAEMON_PID_FILE is not defined."
   exit 1
 fi
 
-if [ "x" == "$HIVE_DAEMON_CMDx" ]; then
+if [ "x" == "${HIVE_DAEMON_CMD}x" ]; then
   echo "HIVE_DAEMON_CMD is not defined."
   exit 1
 fi
