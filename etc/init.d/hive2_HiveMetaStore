@@ -69,7 +69,6 @@ case "$1" in
         if [ -f $HIVE_DAEMON_PID_FILE ]; then
           PID=`cat $HIVE_DAEMON_PID_FILE`
           echo $HIVE_DAEMON_NAME already running: $PID
-          exit 2;
         else
           cd $HIVE_PROCESS_DIR
           daemon --user $HIVE_DAEMON_USER --pidfile $HIVE_DAEMON_PID_FILE \
@@ -123,5 +122,3 @@ case "$1" in
         echo "Usage: $0 {start|stop|restart|status|schema-info|schema-init|schema-upgrade}"
         exit 1
 esac
-
-exit 0
