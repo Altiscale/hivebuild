@@ -1,5 +1,5 @@
-if [ -f /etc/sysconfig/hive2-hive-env.sh ]; then
-  . /etc/sysconfig/hive2-hive-env.sh
+if [ -f /etc/sysconfig/hive2-env.sh ]; then
+  . /etc/sysconfig/hive2-env.sh
 fi
 
 HIVE_CMD=$(which hive)
