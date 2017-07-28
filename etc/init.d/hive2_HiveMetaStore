@@ -101,22 +101,27 @@ case "$1" in
         cd $HIVE_PROCESS_DIR
         export HIVE_SCHEMA_DBTYPE=${HIVE_SCHEMA_DBTYPE}
         runuser root -c 'schematool -dbType ${HIVE_SCHEMA_DBTYPE} -initSchema -verbose'
-        if [ "derby" == "${HIVE_SCHEMA_DBTYPE}" ]; then
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ] && [ "derby" == "${HIVE_SCHEMA_DBTYPE}" ]; then
           export HIVE_DAEMON_USER=${HIVE_DAEMON_USER}
           export HIVE_PROCESS_DIR=${HIVE_PROCESS_DIR}
           runuser root -c 'chown -R ${HIVE_DAEMON_USER} ${HIVE_PROCESS_DIR}/metastore_db && \
                              chown -R ${HIVE_DAEMON_USER} ${HIVE_PROCESS_DIR}/derby.log'
+          RETVAL=$?
         fi
+        exit $RETVAL
         ;;
   schema-upgrade)
         cd $HIVE_PROCESS_DIR
         export HIVE_SCHEMA_DBTYPE=${HIVE_SCHEMA_DBTYPE}
         runuser $HIVE_DAEMON_USER -c 'schematool -dbType $HIVE_SCHEMA_DBTYPE -upgradeSchema -verbose'
+        exit $?
         ;;
   schema-info)
         cd $HIVE_PROCESS_DIR
         export HIVE_SCHEMA_DBTYPE=${HIVE_SCHEMA_DBTYPE}
         runuser $HIVE_DAEMON_USER -c 'schematool -dbType $HIVE_SCHEMA_DBTYPE -info -verbose'
+        exit $?
         ;;
   *)
         echo "Usage: $0 {start|stop|restart|status|schema-info|schema-init|schema-upgrade}"
